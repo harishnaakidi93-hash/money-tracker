@@ -25,3 +25,5 @@ Start the frontend in another terminal:
    ```
 
 Open <http://localhost:5173>. The API runs at <http://localhost:5000> and creates its table on startup. Set `VITE_API_URL` in `frontend/.env` to change the backend API base URL.
+
+
