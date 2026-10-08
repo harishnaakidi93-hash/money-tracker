@@ -3,7 +3,7 @@ import os
 from datetime import date
 from decimal import Decimal, InvalidOperation
 
-from flask import Flask, jsonify, request
+from flask import Flask, Response, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
@@ -58,6 +58,34 @@ def create_app():
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(app)
     CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
+
+    @app.get("/")
+    def index():
+        return Response(
+            """<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daybook API</title>
+  <style>
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; font-family: sans-serif; background: #f4f7f5; color: #17352b; }
+    main { padding: 2rem; text-align: center; }
+    h1 { margin-bottom: .5rem; }
+    p { margin: 0; color: #527067; }
+    code { display: inline-block; margin-top: 1.5rem; padding: .75rem 1rem; border-radius: .5rem; background: #17352b; color: white; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Daybook is running</h1>
+    <p>The backend API is ready to serve your money tracker.</p>
+    <code>http://localhost:5000/api/transactions</code>
+  </main>
+</body>
+</html>""",
+            mimetype="text/html",
+        )
 
     @app.get("/api/transactions")
     def get_transactions():
