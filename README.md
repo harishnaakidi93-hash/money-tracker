@@ -13,7 +13,7 @@ Start the API in a terminal:
    python -m venv .venv
    . .venv/bin/activate
    pip install -r requirements.txt
-   python app.py
+   gunicorn --bind 0.0.0.0:5000 app:app
    ```
 
 Start the frontend in another terminal:
